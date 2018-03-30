@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from tkinter import *
+import os
 
 
 class NdGui:
@@ -8,8 +9,7 @@ class NdGui:
 
     def __init__(self):
         print("I am the guuuu")
-        # self.genGui()
-        self.genSelect()
+        self.genGui()
 
     # Attributes
     ndMain = Tk()
@@ -23,25 +23,32 @@ class NdGui:
     def genGui(self):
         selections = ["Just Play!", "Prepare to Die", "Choose Something", "Something New"]
         commands = ["", "", "", ""]
-        directions = [LEFT, TOP, RIGHT, BOTTOM]
-
-        frame = Frame(self.ndMain)
+        rows = [1, 0, 1, 2]
+        cols = [0, 1, 2, 1]
 
         for i in range(0, 4):
-            Button(frame, text=selections[i]).pack(side=directions[i])
-
-        frame.pack(fill=BOTH, expand=YES)
+            b = Button(self.ndMain, text=selections[i], command=self.selectFrame)
+            b.grid(row=rows[i], column=cols[i])
 
         self.ndMain.mainloop()
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
+        gPath = os.path.join('docs', 'genres.txt')
+        f = open(gPath, 'r')
+        lines = f.readlines()
+        genres = [x.strip() for x in lines]
+        labels = ["Players", "Genres", "Ratings", "", "Popular In"]
         players = ["1", "2", "3", "4"]
-        genres = ["g1", "g2", "g3", "g4"]
+        ratings = ["USA", "JAPAN", "EUROPE", "ELSEWHERE", "...NOWHERE"]
+
+        for i in range(len(labels)):
+            Label(self.ndMain, text=labels[i]).grid(row=0, column=i)
 
         self.genChecks(0, players)
         self.genChecks(1, genres)
         self.genRating(2)
+        self.genChecks(4, ratings)
 
         self.ndMain.mainloop()
 
@@ -50,12 +57,12 @@ class NdGui:
         for i in range(0, len(entries)):
             CheckVar = IntVar()
             cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, onvalue=1, offvalue=0, height=5, width=20)
-            cButtons.append(cButton.grid(row=i, column=col))
+            cButtons.append(cButton.grid(row=i + 1, column=col))
 
     # TODO: dynamic selection as MIN/MAX can clash
     def genRating(self, col):
-        Label(self.ndMain, text="Min").grid(row=0, column=col)
-        Label(self.ndMain, text="Max").grid(row=1, column=col)
+        Label(self.ndMain, text="Min").grid(row=1, column=col)
+        Label(self.ndMain, text="Max").grid(row=2, column=col)
 
         a = list(range(11))
         varMin = IntVar(self.ndMain)
@@ -63,7 +70,14 @@ class NdGui:
         varMax = IntVar(self.ndMain)
         varMax.set(10)
         oMenu = OptionMenu(self.ndMain, varMin, *a)
-        oMenu.grid(row=0, column=col + 1)
+        oMenu.grid(row=1, column=col + 1)
 
         oMenu = OptionMenu(self.ndMain, varMax, *a)
-        oMenu.grid(row=1, column=col + 1)
+        oMenu.grid(row=2, column=col + 1)
+
+    def selectFrame(self):
+        widgets = self.ndMain.grid_slaves()
+        for widget in widgets:
+            widget.grid_forget()
+
+        self.genSelect()

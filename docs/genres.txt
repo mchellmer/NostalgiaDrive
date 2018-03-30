@@ -1,0 +1,12 @@
+Shooter
+Misc
+Role-Playing
+Platform
+Action
+Puzzle
+Racing
+Sports
+Strategy
+Simulation
+Fighting
+Adventure
