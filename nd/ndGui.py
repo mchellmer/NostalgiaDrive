@@ -27,13 +27,18 @@ class NdGui:
         cols = [0, 1, 2, 1]
 
         for i in range(0, 4):
-            b = Button(self.ndMain, text=selections[i], command=self.selectFrame)
+            b = Button(self.ndMain, text=selections[i], command=self.goSelect)
             b.grid(row=rows[i], column=cols[i])
 
         self.ndMain.mainloop()
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
+        b = Button(self.ndMain, text="PLAY!", command=self.goPlay)
+        b.grid(row=0, column=0)
+        b = Button(self.ndMain, text="BACK!", command=self.goBack)
+        b.grid(row=1, column=0)
+
         gPath = os.path.join('docs', 'genres.txt')
         f = open(gPath, 'r')
         lines = f.readlines()
@@ -43,7 +48,7 @@ class NdGui:
         ratings = ["USA", "JAPAN", "EUROPE", "ELSEWHERE", "...NOWHERE"]
 
         for i in range(len(labels)):
-            Label(self.ndMain, text=labels[i]).grid(row=0, column=i)
+            Label(self.ndMain, text=labels[i]).grid(row=0, column=i + 1)
 
         self.genChecks(0, players)
         self.genChecks(1, genres)
@@ -57,12 +62,12 @@ class NdGui:
         for i in range(0, len(entries)):
             CheckVar = IntVar()
             cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, onvalue=1, offvalue=0, height=5, width=20)
-            cButtons.append(cButton.grid(row=i + 1, column=col))
+            cButtons.append(cButton.grid(row=i + 1, column=col + 1))
 
     # TODO: dynamic selection as MIN/MAX can clash
     def genRating(self, col):
-        Label(self.ndMain, text="Min").grid(row=1, column=col)
-        Label(self.ndMain, text="Max").grid(row=2, column=col)
+        Label(self.ndMain, text="Min").grid(row=1, column=col + 1)
+        Label(self.ndMain, text="Max").grid(row=2, column=col + 1)
 
         a = list(range(11))
         varMin = IntVar(self.ndMain)
@@ -70,14 +75,27 @@ class NdGui:
         varMax = IntVar(self.ndMain)
         varMax.set(10)
         oMenu = OptionMenu(self.ndMain, varMin, *a)
-        oMenu.grid(row=1, column=col + 1)
+        oMenu.grid(row=1, column=col + 2)
 
         oMenu = OptionMenu(self.ndMain, varMax, *a)
-        oMenu.grid(row=2, column=col + 1)
+        oMenu.grid(row=2, column=col + 2)
 
-    def selectFrame(self):
+    def goSelect(self):
         widgets = self.ndMain.grid_slaves()
         for widget in widgets:
             widget.grid_forget()
 
         self.genSelect()
+
+    def goBack(self):
+        widgets = self.ndMain.grid_slaves()
+        for widget in widgets:
+            widget.grid_forget()
+
+        self.genGui()
+
+    def goPlay(self):
+        widgets = self.ndMain.grid_slaves()
+        print(widgets)
+        for w in widgets:
+            print(w.text.get())
