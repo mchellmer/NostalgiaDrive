@@ -12,11 +12,14 @@ class NdGui:
         self.genGui()
 
     # Attributes
+    key = 1
     ndMain = Tk()
     pad = 3
     _geom = '200x200+0+0'
     ndMain.geometry("{0}x{1}+0+0".format(
         ndMain.winfo_screenwidth() - pad, ndMain.winfo_screenheight() - pad))
+
+    selections = {}
 
     # Methods
     # Generate opening screen
@@ -45,26 +48,29 @@ class NdGui:
         genres = [x.strip() for x in lines]
         labels = ["Players", "Genres", "Ratings", "", "Popular In"]
         players = ["1", "2", "3", "4"]
-        ratings = ["USA", "JAPAN", "EUROPE", "ELSEWHERE", "...NOWHERE"]
+        popularity = ["USA", "JAPAN", "EUROPE", "ELSEWHERE", "...NOWHERE"]
 
         for i in range(len(labels)):
             Label(self.ndMain, text=labels[i]).grid(row=0, column=i + 1)
 
-        self.genChecks(0, players)
-        self.genChecks(1, genres)
+        self.genChecks(0, 'players', players)
+        self.genChecks(1, 'genres', genres)
         self.genRating(2)
-        self.genChecks(4, ratings)
+        self.genChecks(4, 'popularity', popularity)
 
         self.ndMain.mainloop()
 
-    def genChecks(self, col, entries=[]):
-        cButtons = []
+    def genChecks(self, col, type, entries=[]):
         for i in range(0, len(entries)):
-            CheckVar = IntVar()
-            cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, onvalue=1, offvalue=0, height=5, width=20)
-            cButtons.append(cButton.grid(row=i + 1, column=col + 1))
+            CheckVar = BooleanVar()
+            cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, height=5, width=20)
+            cButton.grid(row=i + 1, column=col + 1)
 
-    # TODO: dynamic selection as MIN/MAX can clash
+            entry = {'entry': {'type': 'check', 'data': type, 'obj': cButton}}
+            self.selections[self.key] = entry
+            self.key += 1
+
+    # TODO: dynamic selection as MIN/MAX can clash, DRY
     def genRating(self, col):
         Label(self.ndMain, text="Min").grid(row=1, column=col + 1)
         Label(self.ndMain, text="Max").grid(row=2, column=col + 1)
@@ -74,11 +80,18 @@ class NdGui:
         varMin.set(0)
         varMax = IntVar(self.ndMain)
         varMax.set(10)
-        oMenu = OptionMenu(self.ndMain, varMin, *a)
-        oMenu.grid(row=1, column=col + 2)
+        oMenuMin = OptionMenu(self.ndMain, varMin, *a)
+        oMenuMin.grid(row=1, column=col + 2)
 
-        oMenu = OptionMenu(self.ndMain, varMax, *a)
-        oMenu.grid(row=2, column=col + 2)
+        oMenuMax = OptionMenu(self.ndMain, varMax, *a)
+        oMenuMax.grid(row=2, column=col + 2)
+
+        entry = {'entry': {'type': 'Option', 'data': 'rating', 'obj': oMenuMin}}
+        self.selections[self.key] = entry
+        self.key += 1
+        entry = {'entry': {'type': 'Option', 'data': 'rating', 'obj': oMenuMax}}
+        self.selections[self.key] = entry
+        self.key += 1
 
     def goSelect(self):
         widgets = self.ndMain.grid_slaves()
@@ -95,7 +108,15 @@ class NdGui:
         self.genGui()
 
     def goPlay(self):
-        widgets = self.ndMain.grid_slaves()
-        print(widgets)
-        for w in widgets:
-            print(w.text.get())
+        # print(self.selections)
+        for i in range(1, len(self.selections) + 1):
+            print(self.selections[i]['entry']['data'])
+        # widgets = self.ndMain.grid_slaves()
+        # print(widgets)
+        # elements = []
+        # values = []
+        # for w in widgets:
+        #     elements.append(w["text"])
+        #     var = w["variable"]
+        #     # print(w.keys())  # get all available options
+        #     print(var.get())

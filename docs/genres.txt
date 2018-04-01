@@ -1,6 +1,6 @@
 Shooter
 Misc
-Role-Playing
+RolePlaying
 Platform
 Action
 Puzzle
