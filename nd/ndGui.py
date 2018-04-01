@@ -66,14 +66,14 @@ class NdGui:
             cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, height=5, width=20)
             cButton.grid(row=i + 1, column=col + 1)
 
-            entry = {'entry': {'type': 'check', 'data': type, 'obj': cButton}}
+            entry = {'entry': {'type': 'check', 'data': type, 'text': cButton['text'], 'val': CheckVar}}
             self.selections[self.key] = entry
             self.key += 1
 
     # TODO: dynamic selection as MIN/MAX can clash, DRY
     def genRating(self, col):
-        Label(self.ndMain, text="Min").grid(row=1, column=col + 1)
-        Label(self.ndMain, text="Max").grid(row=2, column=col + 1)
+        minLabel = Label(self.ndMain, text="Min").grid(row=1, column=col + 1)
+        maxLabel = Label(self.ndMain, text="Max").grid(row=2, column=col + 1)
 
         a = list(range(11))
         varMin = IntVar(self.ndMain)
@@ -86,10 +86,10 @@ class NdGui:
         oMenuMax = OptionMenu(self.ndMain, varMax, *a)
         oMenuMax.grid(row=2, column=col + 2)
 
-        entry = {'entry': {'type': 'Option', 'data': 'rating', 'obj': oMenuMin}}
+        entry = {'entry': {'type': 'Option', 'data': 'rating', 'text': 'Min', 'val': varMin}}
         self.selections[self.key] = entry
         self.key += 1
-        entry = {'entry': {'type': 'Option', 'data': 'rating', 'obj': oMenuMax}}
+        entry = {'entry': {'type': 'Option', 'data': 'rating', 'text': 'Max', 'val': varMax}}
         self.selections[self.key] = entry
         self.key += 1
 
@@ -108,15 +108,7 @@ class NdGui:
         self.genGui()
 
     def goPlay(self):
-        # print(self.selections)
+        # print(self.selections[2]['entry']['val'].get())
         for i in range(1, len(self.selections) + 1):
-            print(self.selections[i]['entry']['data'])
-        # widgets = self.ndMain.grid_slaves()
-        # print(widgets)
-        # elements = []
-        # values = []
-        # for w in widgets:
-        #     elements.append(w["text"])
-        #     var = w["variable"]
-        #     # print(w.keys())  # get all available options
-        #     print(var.get())
+            print(self.selections[i]['entry']['text'])
+            print(self.selections[i]['entry']['val'].get())
