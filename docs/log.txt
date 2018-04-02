@@ -1,0 +1,27 @@
+
+2018-04-02 12:09:42.187406: Start Selections
+1: False
+2: False
+3: False
+4: False
+5: False
+8: False
+Action: False
+Fighting: False
+Misc: False
+Platform: False
+Puzzle: False
+Racing: False
+Role-Playing: False
+Shooter: False
+Simulation: False
+Sports: False
+Strategy: False
+Min: 0
+Max: 10
+USA: False
+JAPAN: False
+EUROPE: False
+ELSEWHERE: False
+...NOWHERE: False
+End Selections

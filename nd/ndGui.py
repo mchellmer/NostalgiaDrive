@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from tkinter import *
 import os
+import datetime
 
 
 class NdGui:
@@ -106,13 +107,22 @@ class NdGui:
 
     def goPlay(self):
         # print(self.selections[2]['entry']['val'].get())
+        outpath = os.path.join('docs', 'log.txt')
+        file = open(outpath, 'w')
+        now = datetime.datetime.now()
+        file.write('\n' + str(now) + ': Start Selections' + '\n')
         for i in range(1, len(self.selections) + 1):
-            print(self.selections[i]['entry']['text'])
-            print(self.selections[i]['entry']['val'].get())
+            item = self.selections[i]['entry']['text']
+            val = self.selections[i]['entry']['val'].get()
+            file.write(item + ': ' + str(val) + '\n')
+
+        file.write('End Selections' + '\n')
+        self.ndMain.destroy()
 
     def getTextOptions(self, item):
         filename = item + '.txt'
         gPath = os.path.join('docs', 'selections', filename)
         f = open(gPath, 'r')
         lines = f.readlines()[:-1]
+        lines.sort()
         return [x.strip() for x in lines]
