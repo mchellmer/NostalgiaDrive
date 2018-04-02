@@ -1,27 +1,27 @@
 
-2018-04-02 12:09:42.187406: Start Selections
-1: False
-2: False
-3: False
-4: False
-5: False
-8: False
-Action: False
-Fighting: False
-Misc: False
-Platform: False
-Puzzle: False
-Racing: False
-Role-Playing: False
-Shooter: False
-Simulation: False
-Sports: False
-Strategy: False
-Min: 0
-Max: 10
-USA: False
-JAPAN: False
-EUROPE: False
-ELSEWHERE: False
-...NOWHERE: False
+2018-04-02 16:03:13.023976: Start Selections
+players 1 False
+players 2 True
+players 3 False
+players 4 False
+players 5 False
+players 8 False
+genres Action False
+genres Fighting False
+genres Misc False
+genres Platform True
+genres Puzzle False
+genres Racing False
+genres Role-Playing False
+genres Shooter False
+genres Simulation False
+genres Sports False
+genres Strategy False
+rating Min 5
+rating Max 10
+popularity USA False
+popularity JAPAN False
+popularity EUROPE False
+popularity ELSEWHERE False
+popularity ...NOWHERE False
 End Selections

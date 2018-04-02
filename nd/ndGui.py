@@ -112,9 +112,10 @@ class NdGui:
         now = datetime.datetime.now()
         file.write('\n' + str(now) + ': Start Selections' + '\n')
         for i in range(1, len(self.selections) + 1):
+            col = self.selections[i]['entry']['data']
             item = self.selections[i]['entry']['text']
             val = self.selections[i]['entry']['val'].get()
-            file.write(item + ': ' + str(val) + '\n')
+            file.write(col + ' ' + item + ' ' + str(val) + '\n')
 
         file.write('End Selections' + '\n')
         self.ndMain.destroy()

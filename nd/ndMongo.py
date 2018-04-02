@@ -34,3 +34,35 @@ class NdMongo():
         for item in name:
             if (item != '') and (item != '-'):
                 file.write(str(item) + '\n')
+
+    def queryGames(self, logPath):
+        print("Querying Database")
+        query = self.queryLog(logPath)
+        # mdb columns = id name players date publisher rating genre salesNa salesEu salesJpn salesOther salesGlobal filename
+        # query = {"$and": [{'players': {"$in": [1]}, 'genre': {"$in": ['Shooter']}, 'rating': {"$gt": 0}}, {'rating': {"$lt": 10}}]}
+        result = self.db['games'].find(query)
+        for a in result:
+            print(a)
+
+    def queryLog(self, logPath):
+        print("Retrieving selections from log")
+        qin = {'rMin': 0, 'rMax': 10, 'players': [], 'genres': [], 'popularity': []}
+
+        file = open(logPath, 'r')
+        lines = file.readlines()
+        lines.remove('\n')
+
+        for line in lines:
+            line = line.split()
+            if line[0] == 'rating':
+                if line[1] == 'Min':
+                    qin['rMin'] = int(line[2])
+                else:
+                    qin['rMax'] = int(line[2])
+            elif len(line) == 3:
+                if line[2] != 'False':
+                    qin[line[0]].append(line[1])
+        qin['players'] = [int(x) for x in qin['players']]
+
+        query = {"$and": [{'players': {"$in": qin['players']}, 'genre': {"$in": qin['genres']}, 'rating': {"$gt": qin['rMin']}}, {'rating': {"$lt": qin['rMax']}}]}
+        return(query)

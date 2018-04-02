@@ -24,3 +24,13 @@ mongoimport --db nd --collection games  --type tsv --file nesGamesfinal.tsv --he
 
 8. Grab documents in a collection (will display key and JSON in the collection)
 >db.mycol.find
+
+9. In statement
+>db.mycol.find({ field: { $in: [<value1>, <value2>, ... <valueN> ] } })
+
+-----Troubleshooting-----
+"Connection Refused"
+sudo rm /var/lib/mongodb/mongod.lock
+sudo mongod --repair
+sudo service mongodb start
+sudo service mongodb status
