@@ -8,7 +8,7 @@ class NdGui:
     # Constructor
 
     def __init__(self):
-        print("I am the guuuu")
+        print("GUI Constructed")
         self.genGui()
 
     # Attributes
@@ -42,12 +42,9 @@ class NdGui:
         b = Button(self.ndMain, text="BACK!", command=self.goBack)
         b.grid(row=1, column=0)
 
-        gPath = os.path.join('docs', 'genres.txt')
-        f = open(gPath, 'r')
-        lines = f.readlines()
-        genres = [x.strip() for x in lines]
+        genres = self.getTextOptions('genres')
         labels = ["Players", "Genres", "Ratings", "", "Popular In"]
-        players = ["1", "2", "3", "4"]
+        players = self.getTextOptions('players')
         popularity = ["USA", "JAPAN", "EUROPE", "ELSEWHERE", "...NOWHERE"]
 
         for i in range(len(labels)):
@@ -112,3 +109,10 @@ class NdGui:
         for i in range(1, len(self.selections) + 1):
             print(self.selections[i]['entry']['text'])
             print(self.selections[i]['entry']['val'].get())
+
+    def getTextOptions(self, item):
+        filename = item + '.txt'
+        gPath = os.path.join('docs', 'selections', filename)
+        f = open(gPath, 'r')
+        lines = f.readlines()[:-1]
+        return [x.strip() for x in lines]

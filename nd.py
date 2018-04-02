@@ -5,4 +5,4 @@ import nd.ndMongo
 mDb = nd.ndMongo.NdMongo()
 
 # Build Gui
-# x = nd.ndGui.NdGui()
+x = nd.ndGui.NdGui()

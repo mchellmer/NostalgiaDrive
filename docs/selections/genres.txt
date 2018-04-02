@@ -1,11 +1,11 @@
 Shooter
-Misc
-RolePlaying
+Role-Playing
 Platform
 Action
 Puzzle
 Racing
 Sports
+Misc
 Strategy
 Simulation
 Fighting
