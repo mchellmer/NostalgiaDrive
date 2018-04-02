@@ -1,6 +1,7 @@
 import nd.ndGui
 import nd.ndMongo
-from os import path
+import subprocess
+from os import path, system
 
 
 # Grab mongodb and output parameters to text
@@ -14,6 +15,10 @@ logPath = path.join('docs', 'log.txt')
 selection = mDb.queryGames(logPath)
 
 gamePath = path.join('..', '..', 'data', 'Nintendo', selection).rstrip()
+
+# Run script
+sPath = path.join('docs', 'scripts', 'basic.sh')
+system("fceux " + "'" + gamePath + "'")
 
 # Close connection to database
 mDb.client.close()
