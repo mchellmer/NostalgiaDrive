@@ -8,6 +8,6 @@ setup(
     license="MIT",
     author='Mark Hellmer',
     author_email='mchellmer@gmail.com',
-    install_requires=['tkinter'],
+    install_requires=['tkinter', 'nltk', 'pymongo'],
     scripts=[]
 )
