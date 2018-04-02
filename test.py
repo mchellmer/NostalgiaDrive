@@ -1,3 +1,3 @@
 a = ['', 1, ' ', '\n']
-a.remove('')
+a.append('cat')
 print(a)

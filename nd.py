@@ -13,5 +13,7 @@ x = nd.ndGui.NdGui()
 logPath = path.join('docs', 'log.txt')
 selection = mDb.queryGames(logPath)
 
+gamePath = path.join('..', '..', 'data', 'Nintendo', selection).rstrip()
+
 # Close connection to database
 mDb.client.close()

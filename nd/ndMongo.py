@@ -1,5 +1,6 @@
 import pymongo
 import numpy
+from random import randint
 from os import path
 
 
@@ -41,8 +42,8 @@ class NdMongo():
         # mdb columns = id name players date publisher rating genre salesNa salesEu salesJpn salesOther salesGlobal filename
         # query = {"$and": [{'players': {"$in": [1]}, 'genre': {"$in": ['Shooter']}, 'rating': {"$gt": 0}}, {'rating': {"$lt": 10}}]}
         result = self.db['games'].find(query)
-        for a in result:
-            print(a)
+        rnd = randint(0, result.count() - 1)
+        return(result[rnd]['filename\r'])
 
     def queryLog(self, logPath):
         print("Retrieving selections from log")
@@ -65,4 +66,31 @@ class NdMongo():
         qin['players'] = [int(x) for x in qin['players']]
 
         query = {"$and": [{'players': {"$in": qin['players']}, 'genre': {"$in": qin['genres']}, 'rating': {"$gt": qin['rMin']}}, {'rating': {"$lt": qin['rMax']}}]}
+
+        qPop = self.queryPopularity(qin['popularity'])
+        query["$and"].extend(qPop)
+        return(query)
+
+    def queryPopularity(self, popSelections):
+        query = []
+        pMap = {'USA': 'salesNa', 'JAPAN': 'salesJpn', 'EUROPE': 'salesEu', 'ELSEWHERE': 'salesOther'}
+        if 'USA' in popSelections:
+            query.append({'salesNa': {"$gt": 0}})
+        else:
+            query.append({'salesNa': {"$eq": 0.0}})
+        if 'JAPAN' in popSelections:
+            query.append({'salesJpn': {"$gt": 0}})
+        else:
+            query.append({'salesJpn': {"$eq": 0.0}})
+        if 'EUROPE' in popSelections:
+            query.append({'salesEu': {"$gt": 0}})
+        else:
+            query.append({'salesEu': {"$eq": 0.0}})
+        if 'ELSEWHERE' in popSelections:
+            query.append({'salesOther': {"$gt": 0}})
+        else:
+            query.append({'salesOther': {"$eq": 0.0}})
+        if '...NOWHERE' in popSelections:
+            query = [{'salesGlobal': {"$eq": 0.0}}]
+
         return(query)
