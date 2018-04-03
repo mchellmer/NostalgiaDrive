@@ -76,20 +76,12 @@ class NdMongo():
         pMap = {'USA': 'salesNa', 'JAPAN': 'salesJpn', 'EUROPE': 'salesEu', 'ELSEWHERE': 'salesOther'}
         if 'USA' in popSelections:
             query.append({'salesNa': {"$gt": 0}})
-        else:
-            query.append({'salesNa': {"$eq": 0.0}})
         if 'JAPAN' in popSelections:
             query.append({'salesJpn': {"$gt": 0}})
-        else:
-            query.append({'salesJpn': {"$eq": 0.0}})
         if 'EUROPE' in popSelections:
             query.append({'salesEu': {"$gt": 0}})
-        else:
-            query.append({'salesEu': {"$eq": 0.0}})
         if 'ELSEWHERE' in popSelections:
             query.append({'salesOther': {"$gt": 0}})
-        else:
-            query.append({'salesOther': {"$eq": 0.0}})
         if '...NOWHERE' in popSelections:
             query = [{'salesGlobal': {"$eq": 0.0}}]
 

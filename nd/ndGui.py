@@ -25,16 +25,31 @@ class NdGui:
     # Methods
     # Generate opening screen
     def genGui(self):
-        selections = ["Just Play!", "Prepare to Die", "Choose Something", "Something New"]
-        commands = ["", "", "", ""]
+        options = ["Just Play!", "Prepare to Die", "Choose Something", "Something New"]
         rows = [1, 0, 1, 2]
         cols = [0, 1, 2, 1]
 
+        dOptions = {}
+
         for i in range(0, 4):
-            b = Button(self.ndMain, text=selections[i], command=self.goSelect)
+            b = Button(self.ndMain, text=options[i], command=self.goSelect)
             b.grid(row=rows[i], column=cols[i])
+            dOptions['option'] = options[i]
+            dOptions['button'] = b
 
         self.ndMain.mainloop()
+
+    def optionInterpret(self, index):
+        if index == 0:
+            self.genRandomGame()
+        elif index == 1:
+            self.genHardGame()
+
+    def genRandomGame():
+        print("Returning a Random Game")
+
+    def genHardGame():
+        print("Returning a Difficult Game")
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
