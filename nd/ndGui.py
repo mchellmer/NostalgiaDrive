@@ -72,21 +72,21 @@ class NdGui:
         print("Returning a random Game")
         result = self.getTextOptions("all")
         rnd = randint(0, len(result) - 1)
-        return(result[rnd])
+        self.goPlay(result[rnd])
 
     # TODO: chain most difficult parts of games
     def genHardGame(self):
         print("Returning a Difficult Game")
         result = self.getTextOptions("hard")
         rnd = randint(0, len(result) - 1)
-        return(result[rnd])
+        self.goPlay(result[rnd])
 
     # TODO: log past selections as ignore list
     def genNewGame(self):
         print("Returning a New Game")
         result = self.getTextOptions("hard")
         rnd = randint(0, len(result) - 1)
-        return(result[rnd])
+        self.goPlay(result[rnd])
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
@@ -157,17 +157,20 @@ class NdGui:
 
         self.genGui()
 
-    def goPlay(self):
+    def goPlay(self, *args):
         # print(self.selections[2]['entry']['val'].get())
         outpath = os.path.join('docs', 'log.txt')
         file = open(outpath, 'w')
         now = datetime.datetime.now()
         file.write('\n' + str(now) + ': Start Selections' + '\n')
-        for i in range(1, len(self.selections) + 1):
-            col = self.selections[i]['entry']['data']
-            item = self.selections[i]['entry']['text']
-            val = self.selections[i]['entry']['val'].get()
-            file.write(col + ' ' + item + ' ' + str(val) + '\n')
+        if args:
+            file.write(args[0] + '\n')
+        else:
+            for i in range(1, len(self.selections) + 1):
+                col = self.selections[i]['entry']['data']
+                item = self.selections[i]['entry']['text']
+                val = self.selections[i]['entry']['val'].get()
+                file.write(col + ' ' + item + ' ' + str(val) + '\n')
 
         file.write('End Selections' + '\n')
         self.ndMain.destroy()

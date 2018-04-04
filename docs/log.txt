@@ -1,27 +1,27 @@
 
-2018-04-04 20:26:18.105681: Start Selections
+2018-04-04 22:36:24.655185: Start Selections
 players 1 True
 players 2 False
 players 3 False
 players 4 False
 players 5 False
 players 8 False
-genres Action True
+genres Action False
 genres Fighting False
 genres Misc False
 genres Platform False
 genres Puzzle False
-genres Racing False
+genres Racing True
 genres Role-Playing False
 genres Shooter False
 genres Simulation False
 genres Sports False
 genres Strategy False
-rating Min 0
+rating Min 8
 rating Max 10
 popularity USA False
 popularity JAPAN False
 popularity EUROPE False
 popularity ELSEWHERE False
-popularity ...NOWHERE True
+popularity ...NOWHERE False
 End Selections

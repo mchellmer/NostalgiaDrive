@@ -38,20 +38,23 @@ class NdMongo():
 
     def queryGames(self, logPath):
         print("Querying Database")
-        query = self.queryLog(logPath)
-        # mdb columns = id name players date publisher rating genre salesNa salesEu salesJpn salesOther salesGlobal filename
-        # query = {"$and": [{'players': {"$in": [1]}, 'genre': {"$in": ['Shooter']}, 'rating': {"$gt": 0}}, {'rating': {"$lt": 10}}]}
-        result = self.db['games'].find(query)
-        rnd = randint(0, result.count() - 1)
-        return(result[rnd]['filename\r'])
-
-    def queryLog(self, logPath):
-        print("Retrieving selections from log")
-        qin = {'rMin': 0, 'rMax': 10, 'players': [], 'genres': [], 'popularity': []}
-
         file = open(logPath, 'r')
         lines = file.readlines()
         lines.remove('\n')
+
+        if len(lines) > 3:
+            query = self.queryLog(lines)
+            # mdb columns = id name players date publisher rating genre salesNa salesEu salesJpn salesOther salesGlobal filename
+            # query = {"$and": [{'players': {"$in": [1]}, 'genre': {"$in": ['Shooter']}, 'rating': {"$gt": 0}}, {'rating': {"$lt": 10}}]}
+            result = self.db['games'].find(query)
+            rnd = randint(0, result.count() - 1)
+            return(result[rnd]['filename\r'])
+        else:
+            return(lines[1].rstrip())
+
+    def queryLog(self, lines):
+        print("Retrieving selections from log")
+        qin = {'rMin': 0, 'rMax': 10, 'players': [], 'genres': [], 'popularity': []}
 
         for line in lines:
             line = line.split()
