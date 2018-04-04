@@ -1,5 +1,5 @@
 
-2018-04-03 21:55:34.867418: Start Selections
+2018-04-04 20:26:18.105681: Start Selections
 players 1 True
 players 2 False
 players 3 False

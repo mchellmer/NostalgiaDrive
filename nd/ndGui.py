@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from tkinter import *
+from random import randint
 import os
 import datetime
 
@@ -29,13 +30,31 @@ class NdGui:
         rows = [1, 0, 1, 2]
         cols = [0, 1, 2, 1]
 
-        dOptions = {}
+        # TODO: DRY because can't figure out how to dynamically set command
+        randPlay = Button(self.ndMain, text=options[0], command=lambda: self.optionInterpret(0))
+        randPlay.grid(row=rows[0], column=cols[0])
 
-        for i in range(0, 4):
-            b = Button(self.ndMain, text=options[i], command=self.goSelect)
-            b.grid(row=rows[i], column=cols[i])
-            dOptions['option'] = options[i]
-            dOptions['button'] = b
+        hardPlay = Button(self.ndMain, text=options[1], command=lambda: self.optionInterpret(1))
+        hardPlay.grid(row=rows[1], column=cols[1])
+
+        selectPlay = Button(self.ndMain, text=options[2], command=lambda: self.optionInterpret(2))
+        selectPlay.grid(row=rows[2], column=cols[2])
+
+        newPlay = Button(self.ndMain, text=options[3], command=lambda: self.optionInterpret(3))
+        newPlay.grid(row=rows[3], column=cols[3])
+
+        # TODO: Dynamic command select
+        # dOptions = {'buttons': {}}
+
+        # for i in range(0, 4):
+        # dOptions['buttons'][i] = {}
+        # dOptions['buttons'][i]['row'] = rows[i]
+        # dOptions['buttons'][i]['col'] = cols[i]
+        # dOptions['buttons'][i]['option'] = options[i]
+        # dOptions['buttons'][i]['button'] = Button(self.ndMain, text=options[i], command=lambda: self.optionInterpret(i))
+
+        # for i in range(0, 4):
+        # dOptions['buttons'][i]['button'].grid(row=dOptions['buttons'][i]['row'], column=dOptions['buttons'][i]['col'])
 
         self.ndMain.mainloop()
 
@@ -44,12 +63,30 @@ class NdGui:
             self.genRandomGame()
         elif index == 1:
             self.genHardGame()
+        elif index == 2:
+            self.goSelect()
+        elif index == 3:
+            self.genNewGame()
 
-    def genRandomGame():
-        print("Returning a Random Game")
+    def genRandomGame(self):
+        print("Returning a random Game")
+        result = self.getTextOptions("all")
+        rnd = randint(0, len(result) - 1)
+        return(result[rnd])
 
-    def genHardGame():
+    # TODO: chain most difficult parts of games
+    def genHardGame(self):
         print("Returning a Difficult Game")
+        result = self.getTextOptions("hard")
+        rnd = randint(0, len(result) - 1)
+        return(result[rnd])
+
+    # TODO: log past selections as ignore list
+    def genNewGame(self):
+        print("Returning a New Game")
+        result = self.getTextOptions("hard")
+        rnd = randint(0, len(result) - 1)
+        return(result[rnd])
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
