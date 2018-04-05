@@ -11,6 +11,7 @@ class NdGui:
 
     def __init__(self):
         print("GUI Constructed")
+
         self.genGui()
 
     # Attributes
@@ -18,14 +19,14 @@ class NdGui:
     ndMain = Tk()
     pad = 3
     _geom = '200x200+0+0'
-    ndMain.geometry("{0}x{1}+0+0".format(
-        ndMain.winfo_screenwidth() - pad, ndMain.winfo_screenheight() - pad))
+    # ndMain.geometry("{0}x{1}+0+0".format(ndMain.winfo_screenwidth() - pad, ndMain.winfo_screenheight() - pad))
 
     selections = {}
 
     # Methods
     # Generate opening screen
     def genGui(self):
+        print("GUI Building")
         options = ["Just Play!", "Prepare to Die", "Choose Something", "Something New"]
         rows = [1, 0, 1, 2]
         cols = [0, 1, 2, 1]
@@ -59,6 +60,7 @@ class NdGui:
         self.ndMain.mainloop()
 
     def optionInterpret(self, index):
+        print("Interpretting Selection")
         if index == 0:
             self.genRandomGame()
         elif index == 1:
@@ -90,6 +92,7 @@ class NdGui:
 
     # Generate selection screen (number of players, genre, rating, popularity)
     def genSelect(self):
+        print("Selection Screen Building")
         b = Button(self.ndMain, text="PLAY!", command=self.goPlay)
         b.grid(row=0, column=0)
         b = Button(self.ndMain, text="BACK!", command=self.goBack)
@@ -111,6 +114,7 @@ class NdGui:
         self.ndMain.mainloop()
 
     def genChecks(self, col, type, entries=[]):
+        print("Building Check Widgets")
         for i in range(0, len(entries)):
             CheckVar = BooleanVar()
             cButton = Checkbutton(self.ndMain, text=entries[i], variable=CheckVar, height=5, width=20)
@@ -122,6 +126,7 @@ class NdGui:
 
     # TODO: dynamic selection as MIN/MAX can clash, DRY
     def genRating(self, col):
+        print("Building Dropdown Widgets")
         minLabel = Label(self.ndMain, text="Min").grid(row=1, column=col + 1)
         maxLabel = Label(self.ndMain, text="Max").grid(row=2, column=col + 1)
 
@@ -144,6 +149,7 @@ class NdGui:
         self.key += 1
 
     def goSelect(self):
+        print("Going to Selection Screen")
         widgets = self.ndMain.grid_slaves()
         for widget in widgets:
             widget.grid_forget()
@@ -151,6 +157,7 @@ class NdGui:
         self.genSelect()
 
     def goBack(self):
+        print("Returning to Main Screen")
         widgets = self.ndMain.grid_slaves()
         for widget in widgets:
             widget.grid_forget()
@@ -158,6 +165,7 @@ class NdGui:
         self.genGui()
 
     def goPlay(self, *args):
+        print("Selection Entered")
         # print(self.selections[2]['entry']['val'].get())
         outpath = os.path.join('docs', 'log.txt')
         file = open(outpath, 'w')
@@ -176,6 +184,7 @@ class NdGui:
         self.ndMain.destroy()
 
     def getTextOptions(self, item):
+        print("Grabbing Options from File")
         filename = item + '.txt'
         gPath = os.path.join('docs', 'selections', filename)
         f = open(gPath, 'r')
