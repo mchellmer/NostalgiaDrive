@@ -2,3 +2,8 @@ https://ubuntuforums.org/showthread.php?t=971455
 
 basic command line
 http://www.fceux.com/web/help/fceux.html?CommandLineOptions.html
+
+Structure
+/fceultra
+/.fceux
+    fceux.cfg
