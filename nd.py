@@ -14,7 +14,7 @@ x = nd.ndGui.NdGui()
 logPath = path.join('docs', 'log.txt')
 selection = mDb.queryGames(logPath)
 print(repr(selection))
-gamePath = path.join('..', '..', 'data', 'Nintendo', selection).rstrip()
+gamePath = path.join('..', 'data', 'Nintendo', selection).rstrip()
 
 # Run script
 sPath = path.join('docs', 'scripts', 'basic.sh')
