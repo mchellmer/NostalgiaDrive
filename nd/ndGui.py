@@ -19,7 +19,9 @@ class NdGui:
     ndMain = Tk()
     pad = 3
     _geom = '200x200+0+0'
-    # ndMain.geometry("{0}x{1}+0+0".format(ndMain.winfo_screenwidth() - pad, ndMain.winfo_screenheight() - pad))
+    sWidth = ndMain.winfo_screenwidth()
+    sHeight = ndMain.winfo_screenheight()
+    ndMain.geometry("{0}x{1}+0+0".format(sWidth - pad, sHeight - pad))
 
     selections = {}
 
@@ -32,16 +34,30 @@ class NdGui:
         cols = [0, 1, 2, 1]
 
         # TODO: DRY because can't figure out how to dynamically set command
+        simH = self.sHeight/3 - 6
+
+        rFile = os.path.join("docs","images","mario_coin_block_by_mattkrocks.gif")
+        randphoto=PhotoImage(file=rFile).zoom()
         randPlay = Button(self.ndMain, text=options[0], command=lambda: self.optionInterpret(0))
+        randPlay.config(image=randphoto,width=simH,height=simH)
         randPlay.grid(row=rows[0], column=cols[0])
 
+        hFile = os.path.join("docs","images","tombstone_pixel_art_by_megalomaniacaly-dakxo4m.gif")
+        hardphoto=PhotoImage(file=hFile)
         hardPlay = Button(self.ndMain, text=options[1], command=lambda: self.optionInterpret(1))
+        hardPlay.config(image=hardphoto,width=simH,height=simH)
         hardPlay.grid(row=rows[1], column=cols[1])
 
+        sFile = os.path.join("docs","images","Options Button.gif")
+        selphoto=PhotoImage(file=sFile)
         selectPlay = Button(self.ndMain, text=options[2], command=lambda: self.optionInterpret(2))
+        selectPlay.config(image=selphoto,width=simH,height=simH)
         selectPlay.grid(row=rows[2], column=cols[2])
 
+        nFile = os.path.join("docs","images","bino.gif")
+        newphoto=PhotoImage(file=nFile)
         newPlay = Button(self.ndMain, text=options[3], command=lambda: self.optionInterpret(3))
+        newPlay.config(image=newphoto,width=simH,height=simH)
         newPlay.grid(row=rows[3], column=cols[3])
 
         # TODO: Dynamic command select

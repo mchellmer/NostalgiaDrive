@@ -1,5 +1,5 @@
 import pymongo
-import numpy
+# import numpy
 from random import randint
 from os import path
 
