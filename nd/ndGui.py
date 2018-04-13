@@ -31,30 +31,34 @@ class NdGui:
         print("GUI Building")
         options = ["Just Play!", "Prepare to Die", "Choose Something", "Something New"]
         rows = [1, 0, 1, 2]
-        cols = [0, 1, 2, 1]
+        cols = [1, 2, 3, 2]
 
         # TODO: DRY because can't figure out how to dynamically set command
-        simH = self.sHeight/3 - 6
+        simH = self.sHeight/3 - 20
+        shift = 0.25 * (self.sWidth - simH*3)
 
-        rFile = os.path.join("docs","images","mario_coin_block_by_mattkrocks.gif")
-        randphoto=PhotoImage(file=rFile).zoom()
+        label = Label(self.ndMain, text = '')
+        label.grid(column = 0, row = 0, padx=shift)
+
+        rFile = os.path.join("docs","images","rsz_mario_coin_block_by_mattkrocks_224_224.gif")
+        randphoto=PhotoImage(file=rFile)
         randPlay = Button(self.ndMain, text=options[0], command=lambda: self.optionInterpret(0))
         randPlay.config(image=randphoto,width=simH,height=simH)
         randPlay.grid(row=rows[0], column=cols[0])
 
-        hFile = os.path.join("docs","images","tombstone_pixel_art_by_megalomaniacaly-dakxo4m.gif")
+        hFile = os.path.join("docs","images","tombstone_pixel_art_by_megalomaniacaly-dakxo4m_224_224.gif")
         hardphoto=PhotoImage(file=hFile)
         hardPlay = Button(self.ndMain, text=options[1], command=lambda: self.optionInterpret(1))
         hardPlay.config(image=hardphoto,width=simH,height=simH)
         hardPlay.grid(row=rows[1], column=cols[1])
 
-        sFile = os.path.join("docs","images","Options Button.gif")
+        sFile = os.path.join("docs","images","playerselect_225x225.gif")
         selphoto=PhotoImage(file=sFile)
         selectPlay = Button(self.ndMain, text=options[2], command=lambda: self.optionInterpret(2))
         selectPlay.config(image=selphoto,width=simH,height=simH)
         selectPlay.grid(row=rows[2], column=cols[2])
 
-        nFile = os.path.join("docs","images","bino.gif")
+        nFile = os.path.join("docs","images","bino_190x183.gif")
         newphoto=PhotoImage(file=nFile)
         newPlay = Button(self.ndMain, text=options[3], command=lambda: self.optionInterpret(3))
         newPlay.config(image=newphoto,width=simH,height=simH)
